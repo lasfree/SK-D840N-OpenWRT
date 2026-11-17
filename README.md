@@ -2,6 +2,11 @@
 
 **SK-D840N OpenWRT rootfs**
 
+> PassWall 构建版：运行 GitHub Actions 中的 **Build SK-D840N OpenWrt with PassWall**，
+> 可生成预装 Argon 现代 LuCI、简体中文、PassWall + Xray，并保留 `opkg`/IPK
+> 安装能力和 SK-D840N 专用 sysupgrade 的固件包。刷机前请阅读
+> [FLASHING.zh-CN.md](FLASHING.zh-CN.md)。
+
 **Feature:**
 
 * AArch64 @ Cortex A53x2 1000MHZ
@@ -50,6 +55,15 @@
 * from: [generic-ext4-rootfs.img.gz](https://downloads.openwrt.org/releases/24.10.8/targets/armsr/armv8/openwrt-24.10.8-armsr-armv8-generic-ext4-rootfs.img.gz)
 * release page: [releases](https://downloads.openwrt.org/releases/24.10.8/targets/armsr/armv8/)
 * gcc: [gcc-13.3.0-musl.Linux-x86-64.tar.zst](https://downloads.openwrt.org/releases/24.10.8/targets/armsr/armv8/openwrt-toolchain-24.10.8-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst)
+
+### Firewall compatibility
+
+The supplied `uImage` uses the vendor 4.19.136+ kernel, while the generic
+24.10 rootfs is otherwise built for a 6.6 kernel. The PassWall build therefore
+compiles and installs firewall3 with legacy iptables, and removes firewall4,
+nftables, and the 6.6-only nftables module load entries. The UCI WAN zone keeps
+`option masq 1`, so IPv4 LAN-to-WAN NAT is handled by the kernel's 4.19
+netfilter support.
 
 ## Quick Start
 
