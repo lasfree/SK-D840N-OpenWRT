@@ -1,4 +1,0 @@
-[ "$ACTION" = "add" -o "$ACTION" = "remove" ] && {
-	/bin/mkdir -p /tmp/etc/config/
-	/sbin/block detect | /bin/sed 's/enabled\t'\''0'\''/enabled\t'\''1'\''/g' > /tmp/etc/config/fstab
-}

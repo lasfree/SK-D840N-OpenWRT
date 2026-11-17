@@ -1,1 +1,0 @@
-export const revision = '26.205.85413~cac97ed', branch = 'LuCI openwrt-24.10 branch';
