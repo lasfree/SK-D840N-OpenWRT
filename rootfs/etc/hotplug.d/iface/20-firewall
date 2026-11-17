@@ -1,9 +1,9 @@
 #!/bin/sh
 
 has_zone() {
-	fw4 -q network "$INTERFACE" >/dev/null && return 0
+	fw3 -q network "$INTERFACE" >/dev/null && return 0
 	eval $(ubus call "network.interface.$INTERFACE" status | jsonfilter -e 'ZONE=@.data.zone')
-	fw4 -q zone "$ZONE" >/dev/null
+	fw3 -q zone "$ZONE" >/dev/null
 }
 
 [ "$ACTION" = ifup -o "$ACTION" = ifupdate ] || exit 0
@@ -14,4 +14,4 @@ has_zone() {
 has_zone || exit 0
 
 logger -t firewall "Reloading firewall due to $ACTION of $INTERFACE ($DEVICE)"
-fw4 -q reload
+fw3 -q reload
